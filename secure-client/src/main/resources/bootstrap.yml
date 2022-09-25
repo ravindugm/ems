@@ -3,7 +3,7 @@ spring:
     name: secure-client
   cloud:
     config:
-      uri: http://localhost:5015
+      uri: http://localhost:5016
 
 management:
   security:
