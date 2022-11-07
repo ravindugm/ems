@@ -2,6 +2,7 @@ package com.practicecode.secureclient.service;
 
 import com.practicecode.secureclient.entity.User;
 import com.practicecode.secureclient.entity.VerificationToken;
+import com.practicecode.secureclient.exception.UserNotFoundException;
 import com.practicecode.secureclient.model.UserModel;
 import com.practicecode.secureclient.repository.UserRepository;
 import com.practicecode.secureclient.repository.VerificationTokenRepository;
@@ -32,6 +33,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userModel.getPassword()));
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public User getUser(int userId) throws UserNotFoundException {
+        User user = userRepository.findByUserId(userId);
+        if (user != null) {
+            return user;
+        } else {
+            throw new UserNotFoundException("User not found with id: " + userId);
+        }
     }
 
     @Override
